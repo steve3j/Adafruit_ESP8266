@@ -184,9 +184,13 @@ boolean Adafruit_ESP8266::connectToAP(Fstr *ssid, Fstr *pass) {
   char buf[256];
 
   println(F("AT+CWMODE=1")); // WiFi mode = Sta
-  readLine(buf, sizeof(buf));
-  if(!(strstr_P(buf, (Pchr *)F("OK")) ||
-       strstr_P(buf, (Pchr *)F("no change")))) return false;
+  //readLine(buf, sizeof(buf));
+  //readLine(buf, sizeof(buf));
+  //read(buf, sizeof(buf));
+  //if(!(strstr_P(buf, (Pchr *)F("OK")) ||
+  //     strstr_P(buf, (Pchr *)F("no change")))) return false;
+  if (!(find()))
+  return false;
 
   print(F("AT+CWJAP=\"")); // Join access point
   print(ssid);
@@ -219,7 +223,7 @@ boolean Adafruit_ESP8266::connectTCP(Fstr *h, int port) {
   print(F("\","));
   println(port);
 
-  if(find(F("Linked"))) {
+  if(find(F("CONNECT"))) {
     host = h;
     return true;
   }
